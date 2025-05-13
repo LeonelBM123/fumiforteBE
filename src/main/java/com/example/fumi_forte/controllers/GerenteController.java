@@ -38,13 +38,13 @@ public class GerenteController {
     }
     
     @GetMapping("/plagas")
-    @PreAuthorize("hasAuthority('Gerente')")
+//    @PreAuthorize("hasAuthority('Gerente')")
     public List<Plaga> obtenerPlaga(){
         return Plagas.findAll();
     }
     
     @GetMapping("/proveedores")
-    @PreAuthorize("hasAuthority('Gerente')")
+//    @PreAuthorize("hasAuthority('Gerente')")
     public List<Proveedor> obtenerProveedores(){
         return Proveedores.findAll();
     }

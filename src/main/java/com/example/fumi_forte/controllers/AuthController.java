@@ -6,6 +6,9 @@ package com.example.fumi_forte.controllers;
 
 import com.example.fumi_forte.dto.AuthRequestDto;
 import com.example.fumi_forte.models.SecurityUser;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class AuthController {
+
     private final AuthenticationManager authenticationManager;
 
     public AuthController(AuthenticationManager authenticationManager) {
@@ -30,26 +36,22 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDto authRequest) {
+    public ResponseEntity<?> login(@RequestBody AuthRequestDto request,HttpServletRequest httpRequest) {
         try {
-            Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                    authRequest.getUsername(),
-                    authRequest.getPassword()
-                )
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
 
-            SecurityUser user = (SecurityUser) auth.getPrincipal();
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // Aquí podrías generar un JWT y devolverlo
-            return ResponseEntity.ok(Map.of(
-                "message", "Login exitoso",
-                "username", user.getUsername(),
-                "roles", user.getAuthorities()
-            ));
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "Credenciales inválidas"));
+            // ✅ Guarda la autenticación en la sesión manualmente
+            HttpSession session = httpRequest.getSession(true);
+            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                    SecurityContextHolder.getContext());
+
+            return ResponseEntity.ok(Collections.singletonMap("message","Autentificacion Exitosa"));
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message","Credenciales Invalidas"));
         }
     }
 }

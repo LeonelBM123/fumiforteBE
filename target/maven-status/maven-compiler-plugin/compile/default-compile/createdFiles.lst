@@ -16,3 +16,4 @@ com\example\fumi_forte\controllers\PublicController.class
 com\example\fumi_forte\models\Plaga.class
 com\example\fumi_forte\controllers\GerenteController.class
 com\example\fumi_forte\models\SecurityUser.class
+com\example\fumi_forte\config\CorsConfig.class

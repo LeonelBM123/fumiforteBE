@@ -7,7 +7,9 @@ package com.example.fumi_forte.models;
 import jakarta.persistence.Entity;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,17 +19,13 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author PC
  */
-
 @AllArgsConstructor
 @NoArgsConstructor
 public class SecurityUser implements UserDetails{
 
     private Usuario user;
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(user.getRol()));
-    }
-
+    
+    
     @Override
     public String getPassword() {
         return user.getContraseña();
@@ -37,5 +35,30 @@ public class SecurityUser implements UserDetails{
     public String getUsername() {
         return user.getNombreCompleto();
     }
-    
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRol()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
 }
