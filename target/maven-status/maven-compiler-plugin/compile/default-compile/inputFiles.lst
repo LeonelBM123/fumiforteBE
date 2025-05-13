@@ -1,7 +1,9 @@
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\config\SecurityConfig.java
+C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\controllers\AuthController.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\controllers\GerenteController.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\controllers\HomeController.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\controllers\PublicController.java
+C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\dto\AuthRequestDto.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\FumiForteApplication.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\models\Bitacora.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\models\Plaga.java
