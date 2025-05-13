@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class AuthController {
-
+    
     private final AuthenticationManager authenticationManager;
 
     public AuthController(AuthenticationManager authenticationManager) {
