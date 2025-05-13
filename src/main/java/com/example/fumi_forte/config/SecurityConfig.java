@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -30,7 +29,8 @@ public class SecurityConfig {
         return http
                 .cors().and()
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/login","/public/***").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/login", "/registro", "/public/**").permitAll() // 👉 agrega aquí lo público
                     .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess

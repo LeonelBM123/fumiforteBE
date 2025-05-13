@@ -31,7 +31,7 @@ public class GerenteController {
     ProveedorRepository Proveedores;
     BitacoraRepository Bitacoras;
     
-    @CrossOrigin()
+  
     @GetMapping("/usuarios")
     @PreAuthorize("hasAuthority('Gerente')")
     public List<Usuario> obtenerUsuarios(){
