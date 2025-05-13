@@ -45,7 +45,7 @@ public class GerenteController {
     }
     
     @GetMapping("/proveedores")
-//    @PreAuthorize("hasAuthority('Gerente')")
+    @PreAuthorize("hasAuthority('Gerente')")
     public List<Proveedor> obtenerProveedores(){
         return Proveedores.findAll();
     }

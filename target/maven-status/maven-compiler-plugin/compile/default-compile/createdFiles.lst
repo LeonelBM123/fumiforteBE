@@ -8,6 +8,7 @@ com\example\fumi_forte\controllers\AuthController.class
 com\example\fumi_forte\controllers\ClienteController.class
 com\example\fumi_forte\models\Proveedor.class
 com\example\fumi_forte\services\UserDetailsServiceImpl.class
+com\example\fumi_forte\controllers\PlagaController.class
 com\example\fumi_forte\dto\AuthRequestDto.class
 com\example\fumi_forte\repository\BitacoraRepository.class
 com\example\fumi_forte\repository\PlagaRepository.class

@@ -8,7 +8,10 @@ import com.example.fumi_forte.dto.AuthRequestDto;
 import com.example.fumi_forte.models.SecurityUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class AuthController {
-    
+
     private final AuthenticationManager authenticationManager;
 
     public AuthController(AuthenticationManager authenticationManager) {
@@ -36,7 +40,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDto request,HttpServletRequest httpRequest) {
+    public ResponseEntity<?> login(@RequestBody AuthRequestDto request, HttpServletRequest httpRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
@@ -49,9 +53,19 @@ public class AuthController {
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                     SecurityContextHolder.getContext());
 
-            return ResponseEntity.ok(Collections.singletonMap("message","Autentificacion Exitosa"));
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            List<String> roles = authorities.stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .toList();
+
+            // Retornar las roles junto al mensaje
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Autenticación Exitosa");
+            response.put("authorities", roles);
+            return ResponseEntity.ok(response);
+            //return ResponseEntity.ok(Collections.singletonMap("message","Autentificacion Exitosa"));
         } catch (AuthenticationException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message","Credenciales Invalidas"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "Credenciales Invalidas"));
         }
     }
 }
