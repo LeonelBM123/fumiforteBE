@@ -1,20 +1,19 @@
 package com.example.fumi_forte.controllers;
 
 import com.example.fumi_forte.models.Plaga;
-import com.example.fumi_forte.models.Usuario;
 import com.example.fumi_forte.repository.PlagaRepository;
-import com.example.fumi_forte.repository.UsuarioRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class PlagaController {
     //CREAR
     @Autowired
@@ -23,7 +22,7 @@ public class PlagaController {
     @PostMapping("/nueva_plaga")
     public ResponseEntity<?> registrarPlaga(@RequestBody Plaga plaga) {
         if (plagas.existsByNombre(plaga.getNombre())) {
-            return ResponseEntity.badRequest().body("El correo ya está registrado.");
+            return ResponseEntity.badRequest().body("La plaga ya está registrado.");
         }
         Plaga nuevoPlaga = plagas.save(plaga);
         return ResponseEntity.ok(nuevoPlaga);

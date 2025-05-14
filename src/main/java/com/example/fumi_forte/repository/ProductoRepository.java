@@ -4,13 +4,13 @@
  */
 package com.example.fumi_forte.repository;
 
-import com.example.fumi_forte.models.Plaga;
+import com.example.fumi_forte.models.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author PC
  */
-public interface PlagaRepository extends JpaRepository<Plaga, Long>{
-    Boolean existsByNombre(String Nombre); 
+public interface ProductoRepository extends JpaRepository<Producto, Long>{
+    
 }

@@ -27,8 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class GerenteController {
     @Autowired
     UsuarioRepository Usuarios;
+    @Autowired
     PlagaRepository Plagas;
+    @Autowired
     ProveedorRepository Proveedores;
+    @Autowired
     BitacoraRepository Bitacoras;
     
   
@@ -39,7 +42,7 @@ public class GerenteController {
     }
     
     @GetMapping("/plagas")
-//    @PreAuthorize("hasAuthority('Gerente')")
+    @PreAuthorize("hasAuthority('Gerente')")
     public List<Plaga> obtenerPlaga(){
         return Plagas.findAll();
     }
