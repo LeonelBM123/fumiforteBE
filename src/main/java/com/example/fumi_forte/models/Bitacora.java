@@ -11,6 +11,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+
 @Entity
 @Table(name = "bitacora")
 @AllArgsConstructor
@@ -32,7 +36,8 @@ public class Bitacora {
     @Column(nullable = false, length = 45)
     private String ip;
 
-    @Column(name="id_usuario")
-    private Long usuario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
 }

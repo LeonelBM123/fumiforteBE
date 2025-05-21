@@ -21,6 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -62,10 +63,16 @@ public class GerenteController {
         return Productos.findAll();
     }
     
+    //prueba de bitacoras con filtro asociacion
     @GetMapping("/bitacoras")
     @PreAuthorize("hasAuthority('Gerente')")
-    public List<Bitacora> obtenerBitacoras(){
-        return Bitacoras.findAll();
+    public List<Bitacora> obtenerBitacoras(@RequestParam(required = false) Long id_usuario) {
+        if (id_usuario != null) {
+            return Bitacoras.findByUsuarioIdUsuarioOrderByFechaHoraDesc(id_usuario);
+        } else {
+            return Bitacoras.findAllByOrderByFechaHoraDesc();
+        }
     }
+    
 }
 
