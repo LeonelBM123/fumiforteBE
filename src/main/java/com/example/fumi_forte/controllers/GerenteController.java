@@ -22,6 +22,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -67,11 +68,16 @@ public class GerenteController {
         return Productos.findAll();
     }
     
+
 //    @BitacoraLog("Listar bitacora")
+
+    //prueba de bitacoras con filtro asociacion
+
     @GetMapping("/bitacoras")
     @PreAuthorize("hasAuthority('Gerente')")
-    public List<Bitacora> obtenerBitacoras(){
+    public List<Bitacora> obtenerBitacoras() {
         return Bitacoras.findAll();
     }
+    
 }
 

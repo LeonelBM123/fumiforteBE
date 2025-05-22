@@ -14,6 +14,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+
 @Entity
 @Table(name = "bitacora")
 @AllArgsConstructor
@@ -37,5 +41,7 @@ public class Bitacora {
 
     @Column(name = "id_usuario")
     private Long idUsuario;
+
+
 
 }
