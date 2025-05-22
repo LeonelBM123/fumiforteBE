@@ -23,11 +23,23 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long idUsuario;
+     @Column(name = "nombre_completo", nullable = false, length = 100)
     private String nombreCompleto;
+
+    @Column(length = 20)
     private String telefono;
+
+    @Column(length = 150)
     private String direccion;
+
+    @Column(nullable = false, unique = true, length = 100)
     private String correo;
+
+    @Column(name = "contraseña", nullable = false, length = 100)
     private String contraseña;
+
+    @Column(nullable = false, length = 50)
     private String rol;
+
     
 }

@@ -4,15 +4,21 @@
  */
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.aspects.BitacoraLog;
 import com.example.fumi_forte.dto.AuthRequestDto;
 import com.example.fumi_forte.models.SecurityUser;
+import com.example.fumi_forte.services.BitacoraService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import static java.lang.System.console;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,14 +37,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @author PC
  */
 @RestController
+
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-
+    
     public AuthController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-
+    @BitacoraLog("Login de usuario")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDto request, HttpServletRequest httpRequest) {
         try {
@@ -62,6 +69,7 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Autenticación Exitosa");
             response.put("authorities", roles);
+            
             return ResponseEntity.ok(response);
             //return ResponseEntity.ok(Collections.singletonMap("message","Autentificacion Exitosa"));
         } catch (AuthenticationException ex) {

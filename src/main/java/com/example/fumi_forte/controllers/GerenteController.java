@@ -4,6 +4,7 @@
  */
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.aspects.BitacoraLog;
 import com.example.fumi_forte.models.Bitacora;
 import com.example.fumi_forte.models.Plaga;
 import com.example.fumi_forte.models.Producto;
@@ -38,30 +39,35 @@ public class GerenteController {
     @Autowired
     ProductoRepository Productos;
   
+    @BitacoraLog("Listar Usuarios")
     @GetMapping("/usuarios")
     @PreAuthorize("hasAuthority('Gerente')")
     public List<Usuario> obtenerUsuarios(){
         return Usuarios.findAll();
     }
     
+    @BitacoraLog("Listar Plagas")
     @GetMapping("/plagas")
     @PreAuthorize("hasAuthority('Gerente')")
     public List<Plaga> obtenerPlaga(){
         return Plagas.findAll();
     }
     
+    @BitacoraLog("Listar Proveedores")
     @GetMapping("/proveedores")
     @PreAuthorize("hasAuthority('Gerente')")
     public List<Proveedor> obtenerProveedores(){
         return Proveedores.findAll();
     }
     
+    @BitacoraLog("Listar Productos")
     @GetMapping("/productos")
     @PreAuthorize("hasAuthority('Gerente')")
     public List<Producto> obtenerProductos(){
         return Productos.findAll();
     }
     
+//    @BitacoraLog("Listar bitacora")
     @GetMapping("/bitacoras")
     @PreAuthorize("hasAuthority('Gerente')")
     public List<Bitacora> obtenerBitacoras(){

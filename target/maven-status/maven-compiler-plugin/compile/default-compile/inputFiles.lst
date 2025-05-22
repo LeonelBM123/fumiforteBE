@@ -1,3 +1,5 @@
+C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\aspects\BitacoraAspect.java
+C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\aspects\BitacoraLog.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\config\CorsConfig.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\config\SecurityConfig.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\controllers\AuthController.java
@@ -22,4 +24,5 @@ C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\repository\ProveedorRepository.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\repository\UserRepository.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\repository\UsuarioRepository.java
+C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\services\BitacoraService.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\services\UserDetailsServiceImpl.java

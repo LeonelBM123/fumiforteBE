@@ -1,3 +1,4 @@
+com\example\fumi_forte\aspects\BitacoraAspect.class
 com\example\fumi_forte\config\SecurityConfig.class
 com\example\fumi_forte\FumiForteApplication.class
 com\example\fumi_forte\models\Producto.class
@@ -15,7 +16,9 @@ com\example\fumi_forte\repository\UserRepository.class
 com\example\fumi_forte\controllers\AuthController.class
 com\example\fumi_forte\models\Proveedor.class
 com\example\fumi_forte\services\UserDetailsServiceImpl.class
+com\example\fumi_forte\aspects\BitacoraLog.class
 com\example\fumi_forte\controllers\PlagaController.class
+com\example\fumi_forte\services\BitacoraService.class
 com\example\fumi_forte\repository\BitacoraRepository.class
 com\example\fumi_forte\repository\PlagaRepository.class
 com\example\fumi_forte\controllers\HomeController.class
