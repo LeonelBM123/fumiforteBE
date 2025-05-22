@@ -11,9 +11,8 @@ import lombok.*;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
-    private Long idCliente;
+    private Long idCliente; 
 
     @Column(name = "tipo_cliente", nullable = false, length = 10)
     private String tipoCliente;
@@ -25,6 +24,7 @@ public class Cliente {
     private String nit;
 
     @OneToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_usuario", insertable = false, updatable = false)
+    @MapsId 
+    @JoinColumn(name = "id_cliente") 
     private Usuario usuario;
 }
