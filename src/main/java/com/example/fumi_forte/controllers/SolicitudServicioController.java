@@ -30,7 +30,7 @@ public class SolicitudServicioController {
     public SolicitudServicio registrarSolicitud(@RequestBody SolicitudServicio solicitud) {
         solicitud.setEstado("Pendiente");
         solicitud.setIdGerente(null);
-        solicitud.setIdCertificado(null);;
+        solicitud.setIdCertificado(null);
         solicitud.setMontoPendienteCotizacion(new BigDecimal("0.00"));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
          if (auth != null && auth.isAuthenticated()) {
@@ -48,6 +48,18 @@ public class SolicitudServicioController {
     public List<SolicitudServicio> getAllSolicitudes() {
         return solicitudServicioRepository.findAll();
     }
+    
+    //Obtener solicitud por id
+    @GetMapping("/solicitudes/{id}")
+    public ResponseEntity<SolicitudServicio> getSolicitudById(@PathVariable Long id) {
+        Optional<SolicitudServicio> solicitud = solicitudServicioRepository.findById(id);
+        if (solicitud.isPresent()) {
+            return ResponseEntity.ok(solicitud.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
     
     //MODIFICAR
     @PutMapping("/solicitudes/{id}")
