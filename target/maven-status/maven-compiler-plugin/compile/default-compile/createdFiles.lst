@@ -2,6 +2,7 @@ com\example\fumi_forte\aspects\BitacoraAspect.class
 com\example\fumi_forte\config\SecurityConfig.class
 com\example\fumi_forte\repository\ClienteRepository.class
 com\example\fumi_forte\FumiForteApplication.class
+com\example\fumi_forte\repository\TrabajadorRepository.class
 com\example\fumi_forte\models\Producto.class
 com\example\fumi_forte\repository\ProductoRepository.class
 com\example\fumi_forte\models\SolicitudServicio.class

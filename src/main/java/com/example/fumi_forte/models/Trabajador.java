@@ -1,6 +1,7 @@
 package com.example.fumi_forte.models;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.*;
 
 @Entity
@@ -14,16 +15,13 @@ public class Trabajador {
     private Long idTrabajador; 
 
     @Column(name = "especialidad", nullable = false, length = 50)
-    private String tipoCliente;
+    private String especialidad;
 
-    @Column(name = "estado", length = 10)
-    private String razonSocial;
-
-    @Column(name = "nit", length = 50)
-    private String nit;
+    @Column(name = "fecha_inicio", nullable = false)
+    private LocalDate fechaInicio;
 
     @OneToOne
     @MapsId 
-    @JoinColumn(name = "id_cliente") 
+    @JoinColumn(name = "id_trabajador") 
     private Usuario usuario;
 }

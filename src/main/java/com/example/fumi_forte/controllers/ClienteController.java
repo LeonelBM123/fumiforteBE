@@ -4,6 +4,9 @@ import com.example.fumi_forte.models.Usuario;
 import com.example.fumi_forte.repository.UsuarioRepository;
 import com.example.fumi_forte.models.Cliente;
 import com.example.fumi_forte.repository.ClienteRepository;
+import com.example.fumi_forte.models.Trabajador;
+import com.example.fumi_forte.repository.TrabajadorRepository;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,6 +35,10 @@ public class ClienteController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private TrabajadorRepository trabajadorRepository;
+
+    
     @PostMapping("/registro")
     public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
     try {
@@ -54,6 +61,9 @@ public class ClienteController {
                     .body("Error al registrar usuario: " + e.getMessage());
         }
     }
+    
+    
+
     
     //Verificar si existe el id usuario en la tabla cliente
     @Autowired
@@ -98,9 +108,34 @@ public class ClienteController {
         }
     }
 
+    //Registrar en la tabla trabajador
+    @PostMapping("/registro_trabajador")
+    public ResponseEntity<?> registrarTrabajador(@RequestBody Trabajador trabajadorRequest) {
+        try {
+            // Buscamos el usuario con el ID que viene en el trabajadorRequest
+            Optional<Usuario> usuarioOpt = usuarios.findById(trabajadorRequest.getIdTrabajador());
 
+            if (usuarioOpt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado.");
+            }
 
+            Usuario usuario = usuarioOpt.get();
 
+            Trabajador nuevoTrabajador = new Trabajador();
+            nuevoTrabajador.setUsuario(usuario);  // Esto es clave para @MapsId
+            nuevoTrabajador.setEspecialidad(trabajadorRequest.getEspecialidad());
+            nuevoTrabajador.setFechaInicio(LocalDate.now());  // Fecha fija hoy
+
+            trabajadorRepository.save(nuevoTrabajador);
+
+            return ResponseEntity.ok("Trabajador registrado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al registrar trabajador: " + e.getMessage());
+        }
+    }
+    
+    
     
     //ELIMINAR
     @DeleteMapping("/usuarios/{id}")
