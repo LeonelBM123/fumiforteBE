@@ -4,6 +4,7 @@ import com.example.fumi_forte.models.Usuario;
 import com.example.fumi_forte.repository.UsuarioRepository;
 import com.example.fumi_forte.models.Cliente;
 import com.example.fumi_forte.repository.ClienteRepository;
+import java.util.Map;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
@@ -130,6 +131,7 @@ public class ClienteController {
         usuarioExistente.setDireccion(usuarioActualizado.getDireccion());
         usuarioExistente.setContraseña(usuarioActualizado.getContraseña());
         usuarioExistente.setRol(usuarioActualizado.getRol());
+        usuarioExistente.setEstado(usuarioActualizado.getEstado());
 
         // Si se quiere actualizar la contraseña, se debe volver a codificar
         if (usuarioActualizado.getContraseña() != null && !usuarioActualizado.getContraseña().isEmpty()) {
@@ -138,6 +140,27 @@ public class ClienteController {
         Usuario usuarioModificado = usuarios.save(usuarioExistente);
         return ResponseEntity.ok(usuarioModificado);
     }
+    
+    @PutMapping("/usuarios/{id}/estado")
+    public ResponseEntity<?> actualizarEstadoUsuario(@PathVariable Long id, @RequestBody Map<String, String> payload) {
+        Optional<Usuario> usuarioOptional = usuarios.findById(id);
+
+        if (!usuarioOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Usuario usuarioExistente = usuarioOptional.get();
+        String nuevoEstado = payload.get("estado");
+
+        if (nuevoEstado != null) {
+            usuarioExistente.setEstado(nuevoEstado);
+            usuarios.save(usuarioExistente);
+            return ResponseEntity.ok("Estado actualizado correctamente.");
+        } else {
+            return ResponseEntity.badRequest().body("El campo 'estado' es requerido.");
+        }
+    }
+    
     
     @GetMapping("/clientes")
     public ResponseEntity<?> listarClientes() {

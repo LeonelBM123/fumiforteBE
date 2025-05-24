@@ -4,20 +4,19 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "trabajador")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cliente {
-
+public class Trabajador {
     @Id
-    @Column(name = "id_cliente")
-    private Long idCliente; 
+    @Column(name = "id_trabajador")
+    private Long idTrabajador; 
 
-    @Column(name = "tipo_cliente", nullable = false, length = 20)
+    @Column(name = "especialidad", nullable = false, length = 50)
     private String tipoCliente;
 
-    @Column(name = "razon_social", length = 50)
+    @Column(name = "estado", length = 10)
     private String razonSocial;
 
     @Column(name = "nit", length = 50)
