@@ -80,13 +80,12 @@ public class SolicitudServicioController {
         solicitudExistente.setMontoPendienteCotizacion(solicitudActualizado.getMontoPendienteCotizacion());
         solicitudExistente.setCantidadSesiones(solicitudActualizado.getCantidadSesiones());
         solicitudExistente.setRequiereCertificado(solicitudActualizado.getRequiereCertificado());
-//        solicitudExistente.setIdGerente(solicitudActualizado.getIdGerente());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-         if (auth != null && auth.isAuthenticated()) {
-             String username = auth.getName();
-             Usuario usuario = usuarios.findByNombreCompleto(username);
-             solicitudExistente.setIdGerente(usuario.getIdUsuario());
-         }
+            if (auth != null && auth.isAuthenticated()) {
+                String username = auth.getName(); //luego cambiar por el correo para que no existan duplicados
+                Usuario usuario = usuarios.findByNombreCompleto(username);
+                solicitudExistente.setIdGerente(usuario.getIdUsuario());
+            }
         solicitudExistente.setIdCertificado(solicitudActualizado.getIdCertificado());
         SolicitudServicio solicitudModificado = solicitudServicioRepository.save(solicitudExistente);
         return ResponseEntity.ok(solicitudModificado);
