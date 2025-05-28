@@ -17,10 +17,10 @@ public class CertificadoFumigacion {
     @Column(name = "id_certificado")
     private Long idCertificado;
 
-    @Column(name = "fecha_emision", nullable = false)
+    @Column(name = "fecha_emision")
     private LocalDate fechaEmision;
 
-    @Column(name = "fecha_vencimiento", nullable = false)
+    @Column(name = "fecha_vencimiento")
     private LocalDate fechaVencimiento;
 
     @Column(name = "estado", nullable = false, length = 10)

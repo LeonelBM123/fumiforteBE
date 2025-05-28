@@ -62,9 +62,6 @@ public class ClienteController {
         }
     }
     
-    
-
-    
     //Verificar si existe el id usuario en la tabla cliente
     @Autowired
     private ClienteRepository clienteRepository;

@@ -1,7 +1,9 @@
 package com.example.fumi_forte.controllers;
 
 import com.example.fumi_forte.models.CertificadoFumigacion;
+import com.example.fumi_forte.models.SolicitudServicio;
 import com.example.fumi_forte.repository.CertificadoRepository;
+import com.example.fumi_forte.repository.SolicitudServicioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class CertificadoController {
     @Autowired
     private CertificadoRepository certificadoRepository;
 
+    @Autowired
+    private SolicitudServicioRepository solicitudServicioRepository;
+    
     // Obtener todos los certificados
     @GetMapping("/listar_certificados")
     public List<CertificadoFumigacion> obtenerTodosLosCertificados() {
@@ -49,7 +54,19 @@ public class CertificadoController {
         if (!optionalCertificado.isPresent()) {
             return ResponseEntity.notFound().build();
         }
+
+        // Buscar solicitudes que usen este certificado
+        List<SolicitudServicio> solicitudes = solicitudServicioRepository.findByIdCertificado(id);
+
+        // Desligar el certificado de cada solicitud
+        for (SolicitudServicio solicitud : solicitudes) {
+            solicitud.setIdCertificado(null);
+            solicitudServicioRepository.save(solicitud);
+        }
+
+        // Ahora sí, eliminar el certificado
         certificadoRepository.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
 
