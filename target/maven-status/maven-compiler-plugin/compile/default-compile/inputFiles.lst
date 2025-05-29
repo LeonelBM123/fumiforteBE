@@ -1,6 +1,7 @@
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\aspects\BitacoraAspect.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\aspects\BitacoraLog.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\config\CorsConfig.java
+C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\config\SameSiteCookieFilter.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\config\SecurityConfig.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\controllers\AuthController.java
 C:\Users\PC\Documents\NetBeansProjects\fumi_forte\src\main\java\com\example\fumi_forte\controllers\CertificadoController.java
