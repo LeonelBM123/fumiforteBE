@@ -28,6 +28,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +61,7 @@ public class AuthController {
             HttpSession session = httpRequest.getSession(true);
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                     SecurityContextHolder.getContext());
+                    
             //mandarId
             // Obtener el ID del usuario autenticado
             Object principal = authentication.getPrincipal();
@@ -67,6 +69,7 @@ public class AuthController {
 
             if (principal instanceof SecurityUser securityUser) {
                 userId = securityUser.getUser().getIdUsuario(); // 👈 Aquí accedes al ID
+                session.setAttribute("userId", userId);
             }
             
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -84,5 +87,16 @@ public class AuthController {
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "Credenciales Invalidas"));
         }
+    }
+    
+    @GetMapping("/get_iduser")
+    public ResponseEntity<?> getSessionInfo(HttpSession session) {
+        Object userId = session.getAttribute("userId");
+
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado");
+        }
+
+        return ResponseEntity.ok(Map.of("userId", userId));
     }
 }

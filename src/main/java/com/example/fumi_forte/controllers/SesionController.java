@@ -1,13 +1,20 @@
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.models.Participa;
 import com.example.fumi_forte.models.Sesion;
+import com.example.fumi_forte.models.SolicitudServicio;
+import com.example.fumi_forte.repository.ParticipaRepository;
 import com.example.fumi_forte.repository.SesionRepository;
+import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/sesion")
@@ -15,6 +22,9 @@ import java.util.Optional;
 public class SesionController {
 
     private final SesionRepository sesionRepository;
+    
+    @Autowired
+    private ParticipaRepository participaRepository;
 
     // GET: Listar todas las sesiones
     @GetMapping("/listar")
@@ -64,4 +74,29 @@ public class SesionController {
         sesionRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+    
+    // GET: Devuelve datos importantes de la sesion de un trabajador especifico
+    @GetMapping("/datos/{idTrabajador}")
+    public ResponseEntity<List<Map<String, String>>> obtenerDatosSesiones(@PathVariable Long idTrabajador) {
+        List<Participa> participaciones = participaRepository.findByTrabajador_IdTrabajador(idTrabajador);
+
+        List<Map<String, String>> resultados = participaciones.stream()
+            .map(participa -> {
+                Sesion sesion = participa.getSesion();
+                SolicitudServicio solicitud = sesion.getSolicitudServicio();
+
+                Map<String, String> mapa = new HashMap<>();
+                mapa.put("idSesion", sesion.getIdSesion().toString());
+                mapa.put("idSolicitudServicio", sesion.getSolicitudServicio().getIdSolicitudServicio().toString());
+                mapa.put("ubicacionGps", solicitud != null ? solicitud.getUbicacionGps() : "N/A");
+                mapa.put("fechaSesion", sesion.getFecha().toString());
+                mapa.put("horaSesion", sesion.getHora().toString());
+                mapa.put("estadoSesion", sesion.getEstado());
+                return mapa;
+            })
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(resultados);
+    }
+
 }
