@@ -10,6 +10,7 @@ com\example\fumi_forte\models\Producto.class
 com\example\fumi_forte\repository\ProductoRepository.class
 com\example\fumi_forte\models\SolicitudServicio.class
 com\example\fumi_forte\controllers\ClienteController.class
+com\example\fumi_forte\dto\ParticipaDto.class
 com\example\fumi_forte\controllers\ProveedorController.class
 com\example\fumi_forte\models\Gerente.class
 com\example\fumi_forte\dto\AuthRequestDto.class

@@ -37,7 +37,7 @@ public class SolicitudServicioController {
              String username = auth.getName();
              Usuario usuario = usuarios.findByNombreCompleto(username);
              solicitud.setIdCliente(usuario.getIdUsuario());
-         }
+        }
         solicitudServicioRepository.save(solicitud);
         return solicitud;
     }
@@ -79,6 +79,7 @@ public class SolicitudServicioController {
         solicitudExistente.setEstado(solicitudActualizado.getEstado());
         solicitudExistente.setMontoPendienteCotizacion(solicitudActualizado.getMontoPendienteCotizacion());
         solicitudExistente.setCantidadSesiones(solicitudActualizado.getCantidadSesiones());
+        //Creo tantas sesiones como 
         solicitudExistente.setRequiereCertificado(solicitudActualizado.getRequiereCertificado());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.isAuthenticated()) {
