@@ -9,6 +9,7 @@ com\example\fumi_forte\models\Gerente.class
 com\example\fumi_forte\dto\AuthRequestDto.class
 com\example\fumi_forte\controllers\GerenteController.class
 com\example\fumi_forte\repository\UsuarioRepository.class
+SameSiteCookieFilter.class
 com\example\fumi_forte\repository\UserRepository.class
 com\example\fumi_forte\repository\SolicitudServicioRepository.class
 com\example\fumi_forte\controllers\AuthController.class
@@ -27,7 +28,6 @@ com\example\fumi_forte\repository\TrabajadorRepository.class
 com\example\fumi_forte\repository\ProductoRepository.class
 com\example\fumi_forte\controllers\ClienteController.class
 com\example\fumi_forte\dto\ParticipaDto.class
-com\example\fumi_forte\config\SameSiteCookieFilter.class
 com\example\fumi_forte\controllers\ParticipaController.class
 com\example\fumi_forte\models\Trabajador.class
 com\example\fumi_forte\models\Bitacora.class

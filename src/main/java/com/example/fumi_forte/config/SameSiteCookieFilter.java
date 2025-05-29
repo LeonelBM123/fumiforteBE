@@ -1,57 +1,32 @@
 
-package com.example.fumi_forte.config;
-
+import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class SameSiteCookieFilter implements Filter {
     
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+
+        // Ejecuta la cadena de filtros primero
         chain.doFilter(request, response);
 
-        if (response instanceof HttpServletResponse) {
-            HttpServletResponse httpResp = (HttpServletResponse) response;
+        // Luego modifica las cookies de la respuesta
+        if (response instanceof HttpServletResponse httpResp) {
             for (String header : httpResp.getHeaders("Set-Cookie")) {
-                if (header.startsWith("JSESSIONID")) {
+                if (header.startsWith("JSESSIONID") && !header.contains("SameSite")) {
                     httpResp.setHeader("Set-Cookie", header + "; SameSite=None");
                 }
             }
         }
-    }
-
-    @Override
-    public FilterType type() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Class<?>[] value() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Class<?>[] classes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String[] pattern() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
