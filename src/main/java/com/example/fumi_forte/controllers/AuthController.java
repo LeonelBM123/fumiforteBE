@@ -41,10 +41,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    
+
     public AuthController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+
     @BitacoraLog("Login de usuario")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDto request, HttpServletRequest httpRequest) {
@@ -59,7 +60,15 @@ public class AuthController {
             HttpSession session = httpRequest.getSession(true);
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                     SecurityContextHolder.getContext());
+            //mandarId
+            // Obtener el ID del usuario autenticado
+            Object principal = authentication.getPrincipal();
+            Long userId = null;
 
+            if (principal instanceof SecurityUser securityUser) {
+                userId = securityUser.getUser().getIdUsuario(); // 👈 Aquí accedes al ID
+            }
+            
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             List<String> roles = authorities.stream()
                     .map(GrantedAuthority::getAuthority)
@@ -69,7 +78,7 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Autenticación Exitosa");
             response.put("authorities", roles);
-            
+            response.put("userId", userId);
             return ResponseEntity.ok(response);
             //return ResponseEntity.ok(Collections.singletonMap("message","Autentificacion Exitosa"));
         } catch (AuthenticationException ex) {

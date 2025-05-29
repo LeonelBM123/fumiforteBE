@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author PC
  */
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SecurityUser implements UserDetails{
