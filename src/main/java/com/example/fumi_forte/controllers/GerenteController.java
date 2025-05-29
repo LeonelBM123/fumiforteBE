@@ -18,6 +18,7 @@ import com.example.fumi_forte.repository.UsuarioRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,21 @@ public class GerenteController {
     public List<Usuario> obtenerUsuarios(){
         return Usuarios.findAll();
     }
+    
+    @BitacoraLog("Listar Trabajadores")
+    @GetMapping("/trabajadores")
+    @PreAuthorize("hasAuthority('Gerente')")
+    public ResponseEntity<List<Usuario>> obtenerTrabajadores() {
+        List<Usuario> trabajadores = Usuarios.findByRol("Trabajador");
+
+        if (trabajadores.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(trabajadores);
+    }
+
+    
     
     @BitacoraLog("Listar Plagas")
     @GetMapping("/plagas")

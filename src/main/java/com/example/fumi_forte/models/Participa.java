@@ -23,9 +23,9 @@ public class Participa {
     @JoinColumn(name = "id_sesion", nullable = false)
     private Sesion sesion;
 
-    @Column(name = "observaciones", nullable = false, columnDefinition = "text")
+    @Column(name = "observaciones", columnDefinition = "text")
     private String observaciones;
 
-    @Column(name = "pruebas", nullable = false, columnDefinition = "text")
+    @Column(name = "pruebas", columnDefinition = "text")
     private String pruebas;
 }
