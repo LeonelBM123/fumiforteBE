@@ -31,7 +31,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/login", "/registro", "/registro_cliente","/registro_trabajador", "/public/**").permitAll() // 👉 agrega aquí lo público
-                    .anyRequest().authenticated()
+//                    .anyRequest().authenticated()
+                      .anyRequest().permitAll()
                 )
                 .sessionManagement(sess -> sess
                     .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
