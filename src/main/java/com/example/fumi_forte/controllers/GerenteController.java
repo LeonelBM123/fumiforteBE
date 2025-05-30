@@ -65,7 +65,7 @@ public class GerenteController {
     
     @BitacoraLog("Listar Plagas")
     @GetMapping("/plagas")
-    @PreAuthorize("hasAuthority('Gerente')")
+//    @PreAuthorize("hasAuthority('Gerente')")
     public List<Plaga> obtenerPlaga(){
         return Plagas.findAll();
     }
