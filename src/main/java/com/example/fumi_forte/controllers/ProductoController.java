@@ -4,6 +4,7 @@
  */
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.aspects.BitacoraLog;
 import com.example.fumi_forte.models.Producto;
 import com.example.fumi_forte.repository.ProductoRepository;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class ProductoController {
     //CREAR
     @Autowired
     private ProductoRepository productos;
-    
+    @BitacoraLog("Se creo un producto")
     @PostMapping("/nuevo_producto")
     public ResponseEntity<?> registrarProducto(@RequestBody Producto producto) {
         if (productos.existsByNombre(producto.getNombre())) {
@@ -34,6 +35,7 @@ public class ProductoController {
     }
     
     //ELIMINAR
+    @BitacoraLog("Se elimino un producto")
     @DeleteMapping("/productos/{id}")
     @PreAuthorize("hasAuthority('Gerente')")
     public ResponseEntity<?> eliminarProducto(@PathVariable Long id) {
@@ -45,6 +47,7 @@ public class ProductoController {
     }
     
     //MODIFICAR
+    @BitacoraLog("Se modifico un producto")
     @PutMapping("/productos/{id}")
     public ResponseEntity<?> actualizarProducto(@PathVariable Long id, @RequestBody Producto productoActualizado) {
         Optional<Producto> productoOptional = productos.findById(id);

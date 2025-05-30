@@ -90,7 +90,7 @@ public class GerenteController {
     //prueba de bitacoras con filtro asociacion
 
     @GetMapping("/bitacoras")
-    @PreAuthorize("hasAuthority('Gerente')")
+//    @PreAuthorize("hasAuthority('Gerente')")
     public List<Bitacora> obtenerBitacoras() {
         return Bitacoras.findAll();
     }

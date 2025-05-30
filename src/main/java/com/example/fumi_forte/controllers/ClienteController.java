@@ -1,5 +1,6 @@
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.aspects.BitacoraLog;
 import com.example.fumi_forte.models.Usuario;
 import com.example.fumi_forte.repository.UsuarioRepository;
 import com.example.fumi_forte.models.Cliente;
@@ -38,7 +39,7 @@ public class ClienteController {
     @Autowired
     private TrabajadorRepository trabajadorRepository;
 
-    
+    @BitacoraLog("Se ha registrado un nuevo cliente")
     @PostMapping("/registro")
     public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
     try {

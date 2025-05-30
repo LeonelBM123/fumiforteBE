@@ -4,6 +4,7 @@
  */
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.aspects.BitacoraLog;
 import com.example.fumi_forte.models.Proveedor;
 import com.example.fumi_forte.repository.ProveedorRepository;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class ProveedorController {
     //CREAR
     @Autowired
     private ProveedorRepository proveedores;
-    
+    @BitacoraLog("Se creo un proveedor")
     @PostMapping("/nueva_proveedor")
     public ResponseEntity<?> registrarProveedor(@RequestBody Proveedor proveedor) {
         if (proveedores.existsByCorreo(proveedor.getCorreo())) {
@@ -37,6 +38,7 @@ public class ProveedorController {
     }
     
     //ELIMINAR
+    @BitacoraLog("Se elimino un proveedor")
     @DeleteMapping("/proveedores/{id}")
     @PreAuthorize("hasAuthority('Gerente')")
     public ResponseEntity<?> eliminarProveedor(@PathVariable Long id) {
@@ -48,6 +50,7 @@ public class ProveedorController {
     }
     
     //MODIFICAR
+    @BitacoraLog("Se modifico un proveedor")
     @PutMapping("/proveedores/{id}")
     public ResponseEntity<?> actualizarProveedores(@PathVariable Long id, @RequestBody Proveedor proveedorActualizado) {
         Optional<Proveedor> proveedorOptional = proveedores.findById(id);

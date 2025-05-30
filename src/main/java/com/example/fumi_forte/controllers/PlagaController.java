@@ -1,5 +1,6 @@
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.aspects.BitacoraLog;
 import com.example.fumi_forte.models.Plaga;
 import com.example.fumi_forte.repository.PlagaRepository;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class PlagaController {
     //CREAR
     @Autowired
     private PlagaRepository plagas;
-    
+    @BitacoraLog("Se registro una nueva plaga")
     @PostMapping("/nueva_plaga")
     public ResponseEntity<?> registrarPlaga(@RequestBody Plaga plaga) {
         if (plagas.existsByNombre(plaga.getNombre())) {
@@ -29,6 +30,7 @@ public class PlagaController {
     }
     
     //ELIMINAR
+    @BitacoraLog("Se elimino una plaga")
     @DeleteMapping("/plagas/{id}")
     @PreAuthorize("hasAuthority('Gerente')")
     public ResponseEntity<?> eliminarPlaga(@PathVariable Long id) {
@@ -40,6 +42,7 @@ public class PlagaController {
     }
     
     //MODIFICAR
+    @BitacoraLog("Se modifico una plaga")
     @PutMapping("/plagas/{id}")
     public ResponseEntity<?> actualizarPlaga(@PathVariable Long id, @RequestBody Plaga plagaActualizada) {
         Optional<Plaga> plagaOptional = plagas.findById(id);

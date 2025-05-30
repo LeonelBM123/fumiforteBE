@@ -1,5 +1,6 @@
 package com.example.fumi_forte.controllers;
 
+import com.example.fumi_forte.aspects.BitacoraLog;
 import com.example.fumi_forte.models.Bitacora;
 import com.example.fumi_forte.models.Producto;
 import com.example.fumi_forte.models.SolicitudServicio;
@@ -25,6 +26,7 @@ public class SolicitudServicioController {
     @Autowired
     private UsuarioRepository usuarios;
     
+    @BitacoraLog("Se creo una solicitud de Servicio")
     @PostMapping
     @RequestMapping("/solicitud_servicio")
     public SolicitudServicio registrarSolicitud(@RequestBody SolicitudServicio solicitud) {
